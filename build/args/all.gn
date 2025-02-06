@@ -67,3 +67,8 @@ v8_enable_private_mapping_fork_optimization = true
 
 # Expose public V8 symbols for native modules.
 v8_expose_public_symbols = true
+
+# Build Cache
+chrome_pgo_phase = 0
+cc_wrapper = "sccache"
+clang_use_chrome_plugins = false
