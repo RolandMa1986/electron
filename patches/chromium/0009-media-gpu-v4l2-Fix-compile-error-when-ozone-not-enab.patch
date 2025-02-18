@@ -1,0 +1,25 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Jeffy Chen <jeffy.chen@rock-chips.com>
+Date: Mon, 28 Sep 2020 20:02:00 +0800
+Subject: media: gpu: v4l2: Fix compile error when ozone not enabled
+
+Signed-off-by: Jeffy Chen <jeffy.chen@rock-chips.com>
+
+diff --git a/media/gpu/v4l2/BUILD.gn b/media/gpu/v4l2/BUILD.gn
+index f8ee0fd91601be9c86752c4dd1032dade4b9d13e..95b058bde48d09bb28f4ecce7ae28c215f6d24e6 100644
+--- a/media/gpu/v4l2/BUILD.gn
++++ b/media/gpu/v4l2/BUILD.gn
+@@ -123,9 +123,12 @@ source_set("v4l2") {
+     "//third_party/libgav1:libgav1_parser",
+     "//third_party/libyuv",
+     "//ui/gfx/geometry",
+-    "//ui/ozone",
+   ]
+ 
++  if (use_ozone) {
++    deps += [ "//ui/ozone" ]
++  }
++
+   if (is_chromeos_ash) {
+     sources += [
+       "v4l2_jpeg_encode_accelerator.cc",
