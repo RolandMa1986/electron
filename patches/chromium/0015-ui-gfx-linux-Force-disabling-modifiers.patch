@@ -1,0 +1,23 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Jeffy Chen <jeffy.chen@rock-chips.com>
+Date: Mon, 7 Aug 2023 18:05:41 +0800
+Subject: ui: gfx: linux: Force disabling modifiers
+
+It crashes somehow.
+
+Signed-off-by: Jeffy Chen <jeffy.chen@rock-chips.com>
+
+diff --git a/ui/gfx/linux/gbm_wrapper.cc b/ui/gfx/linux/gbm_wrapper.cc
+index 14918c19c0ab0f311a7ab3838212778d84bd9b18..bcfb0871194cc45bba79637d10da596d9de5854c 100644
+--- a/ui/gfx/linux/gbm_wrapper.cc
++++ b/ui/gfx/linux/gbm_wrapper.cc
+@@ -306,7 +306,8 @@ class Device final : public ui::GbmDevice {
+       const gfx::Size& requested_size,
+       uint32_t flags,
+       const std::vector<uint64_t>& modifiers) override {
+-    if (modifiers.empty()) {
++    // HACK: Force disabling modifiers
++    if (true || modifiers.empty()) {
+       return CreateBuffer(format, requested_size, flags);
+     }
+ 

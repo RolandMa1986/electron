@@ -1,0 +1,20 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Jeffy Chen <jeffy.chen@rock-chips.com>
+Date: Mon, 22 Nov 2021 15:59:49 +0800
+Subject: content: gpu: Only depend dri for X11
+
+Signed-off-by: Jeffy Chen <jeffy.chen@rock-chips.com>
+
+diff --git a/content/gpu/BUILD.gn b/content/gpu/BUILD.gn
+index 93559f6092c7a5c2aeacb32a8b51cae358db7291..a78bd64b0df9898a1ae26703935eb7653e07b4e4 100644
+--- a/content/gpu/BUILD.gn
++++ b/content/gpu/BUILD.gn
+@@ -140,7 +140,7 @@ target(link_target_type, "gpu_sources") {
+ 
+   # Use DRI on desktop Linux builds.
+   if (current_cpu != "s390x" && current_cpu != "ppc64" && is_linux &&
+-      !is_castos) {
++      !is_castos && ozone_platform_x11) {
+     configs += [ "//build/config/linux/dri" ]
+   }
+ }

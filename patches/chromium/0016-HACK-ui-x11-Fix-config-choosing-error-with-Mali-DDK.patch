@@ -1,0 +1,34 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Jeffy Chen <jeffy.chen@rock-chips.com>
+Date: Wed, 22 May 2024 18:45:56 +0800
+Subject: HACK: ui: x11: Fix config choosing error with Mali DDK
+
+The Mali DDK only reports EGL configs for the first compatible visual,
+whereas Chromium would choose a random compatible visual.
+
+Signed-off-by: Jeffy Chen <jeffy.chen@rock-chips.com>
+
+diff --git a/ui/gl/gl_surface_egl_x11.cc b/ui/gl/gl_surface_egl_x11.cc
+index d0ec34bf9c1d00e6f70e0d0f5deb9a4a3ef20401..f9f6749ecc1bd0c9c23409199ff34a9dbdc25016 100644
+--- a/ui/gl/gl_surface_egl_x11.cc
++++ b/ui/gl/gl_surface_egl_x11.cc
+@@ -70,10 +70,19 @@ gfx::SwapResult NativeViewGLSurfaceEGLX11::SwapBuffers(
+ }
+ 
+ EGLint NativeViewGLSurfaceEGLX11::GetNativeVisualID() const {
++/**
++ * HACK: Ignore native visual ID, because the Mali DDK only reports EGL
++ * configs for the first compatible visual, whereas Chromium would choose
++ * a random compatible visual.
++ */
++#if 0
+   x11::VisualId visual_id;
+   ui::XVisualManager::GetInstance()->ChooseVisualForWindow(
+       true, &visual_id, nullptr, nullptr, nullptr);
+   return static_cast<EGLint>(visual_id);
++#else
++  return -1;
++#endif
+ }
+ 
+ NativeViewGLSurfaceEGLX11::~NativeViewGLSurfaceEGLX11() {
