@@ -11,11 +11,13 @@
 #include "base/i18n/icu_util.h"
 #include "content/public/app/content_main.h"
 #include "electron/fuses.h"
+#include "headless/public/headless_shell.h"
 #include "shell/app/electron_main_delegate.h"  // NOLINT
 #include "shell/app/node_main.h"
 #include "shell/app/uv_stdio_fix.h"
 #include "shell/common/electron_command_line.h"
 #include "shell/common/electron_constants.h"
+#include "ui/gfx/switches.h"
 
 namespace {
 
@@ -33,6 +35,14 @@ int main(int argc, char* argv[]) {
     base::i18n::InitializeICU();
     base::AtExitManager atexit_manager;
     return electron::NodeMain(argc, argv);
+  }
+
+  base::CommandLine command_line(argc, argv);
+  if (command_line.HasSwitch(switches::kHeadless)) {
+    content::ContentMainParams params(nullptr);
+    params.argc = argc;
+    params.argv = const_cast<const char**>(argv);
+    return headless::HeadlessShellMain(std::move(params));
   }
 
   electron::ElectronMainDelegate delegate;

@@ -1,0 +1,25 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Roland Ma <rolandma@outlook.com>
+Date: Wed, 10 Dec 2025 09:23:56 +0000
+Subject: fix:add Dialog methods for headless shell
+
+This patch adds missing methods to HeadlessSelectFileDialog to fix the build.
+These methods were added to the ui::SelectFileDialog interface but not implemented
+in the headless component.
+
+diff --git a/components/headless/select_file_dialog/headless_select_file_dialog.cc b/components/headless/select_file_dialog/headless_select_file_dialog.cc
+index dbbfcc52fec5141333cd42dd9e3de8a37fa95cdd..fe36d2e04d74073f4eb48e6e3d1be2edeb851a7f 100644
+--- a/components/headless/select_file_dialog/headless_select_file_dialog.cc
++++ b/components/headless/select_file_dialog/headless_select_file_dialog.cc
+@@ -53,6 +53,11 @@ class HeadlessSelectFileDialog : public ui::SelectFileDialog {
+     }
+   }
+ 
++  void SetButtonLabel(const std::string& label) override {}
++  void SetOverwriteConfirmationShown(bool is_shown) override {}
++  void SetHiddenShown(bool is_shown) override {}
++  void SetMultipleSelectionsAllowed(bool is_allowed) override {}
++
+  private:
+   // ui::SelectFileDialog:
+   bool HasMultipleFileTypeChoicesImpl() override { return false; }

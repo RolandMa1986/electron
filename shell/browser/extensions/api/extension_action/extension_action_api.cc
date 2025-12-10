@@ -192,4 +192,11 @@ ActionOpenPopupFunction::RunExtensionAction() {
   return RespondNow(NoArguments());
 }
 
+ExtensionFunction::ResponseAction
+ExtensionActionOpenPopupFunction::RunExtensionAction() {
+  LOG(INFO) << "chrome.action.openPopup is not supported in Electron";
+
+  return RespondNow(WithArguments(""));
+}
+
 }  // namespace extensions

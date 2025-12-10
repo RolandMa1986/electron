@@ -97,18 +97,6 @@ deps = {
     'url': (Var("yaml_git")) + '/pyyaml.git@' + (Var("pyyaml_version")),
     'condition': 'checkout_pyyaml and process_deps',
   },
-  'src/third_party/squirrel.mac': {
-    'url': Var("squirrel_git") + '/Squirrel.Mac.git@' + Var("squirrel.mac_version"),
-    'condition': 'process_deps',
-  },
-  'src/third_party/squirrel.mac/vendor/ReactiveObjC': {
-    'url': Var("reactiveobjc_git") + '/ReactiveObjC.git@' + Var("reactiveobjc_version"),
-    'condition': 'process_deps'
-  },
-  'src/third_party/squirrel.mac/vendor/Mantle': {
-    'url':  Var("mantle_git") + '/Mantle.git@' + Var("mantle_version"),
-    'condition': 'process_deps',
-  },
   'src/third_party/engflow-reclient-configs': {
     'url': Var("engflow_git") + '/reclient-configs.git@' + Var("engflow_reclient_configs_version"),
     'condition': 'process_deps'
