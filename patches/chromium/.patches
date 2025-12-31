@@ -154,3 +154,4 @@ cherry-pick-35f86d6a0a03.patch
 0015-ui-gfx-linux-Force-disabling-modifiers.patch
 0016-HACK-ui-x11-Fix-config-choosing-error-with-Mali-DDK.patch
 fix_add_dialog_methods_for_headless_shell.patch
+fix_add_mali_gpu_memory_leak_patch.patch
